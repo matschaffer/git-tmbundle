@@ -26,6 +26,7 @@ class MiscController < ApplicationController
   def gitx
     cmd = first_which(git.config["git-tmbundle.gitx-path"], "gitx", "/Applications/GitX.app/Contents/Resources/gitx")
     if cmd
+      cmd += " -c" if params[:mode] == 'commit'
       run_detached("cd '#{ENV['TM_DIRECTORY']}';" + cmd, "GitX")
     else
       puts "Unable to find GitX.  Use the config dialog to set the GitX path to where you've installed it."
